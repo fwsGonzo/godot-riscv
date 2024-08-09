@@ -11,7 +11,7 @@ using namespace godot;
 #define RISCV_ARCH riscv::RISCV64
 using gaddr_t = riscv::address_type<RISCV_ARCH>;
 using machine_t = riscv::Machine<RISCV_ARCH>;
-#include "vmcallable.hpp"
+#include "vmcallable.h"
 #include "elf/script_elf.h"
 
 class Sandbox : public Node
@@ -41,6 +41,7 @@ public:
 	static PackedStringArray get_functions_from_binary(const PackedByteArray& binary);
 	// Make a function call to a function in the guest by its name.
 	Variant vmcall(const Variant **args, GDExtensionInt arg_count, GDExtensionCallError &error);
+	Variant vmcall_fn(const String& function, const Variant **args, GDExtensionInt arg_count);
 	Variant vmcall_address(gaddr_t address, const Variant **args, GDExtensionInt arg_count, GDExtensionCallError &error);
 	// Make a callable object that will call a function in the guest by its name.
 	Variant vmcallable(String function);
